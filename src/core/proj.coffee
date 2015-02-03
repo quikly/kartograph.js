@@ -19,7 +19,7 @@
 
 proj = kartograph.proj = root.kartograph.proj = {}
 
-Function::bind = (scope) ->
+Function::bind ?= (scope) ->
     _function = @
     ->
         _function.apply scope,arguments
