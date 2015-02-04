@@ -118,7 +118,7 @@ drawPieChart = (cx, cy, r, values, labels, colors, stroke) ->
         color = colors[j]
         ms = 500
         delta = 30
-        p = sector cx, cy, r, angle, angle+angleplus, 
+        p = sector cx, cy, r, angle, angle+angleplus,
             fill: color
             stroke: stroke
             'stroke-width': 1
@@ -133,7 +133,7 @@ drawPieChart = (cx, cy, r, values, labels, colors, stroke) ->
         return
     for v in values
         total += v
-    for i of values
+    for v, i in values
         process i
     chart
 

@@ -67,8 +67,7 @@ class SymbolGroup
 
         # add symbols
         me.symbols = []
-        for i of me.data
-            d = me.data[i]
+        for d, i in me.data
             if __type(me.filter) == "function"
                 me.add d, i if me.filter d, i
             else
@@ -174,7 +173,7 @@ class SymbolGroup
         me._initTooltips()
         me
 
-    remove: (filter) ->
+    remove: (filter, easingOpts) ->
         me = @
         kept = []
         for s in me.symbols
@@ -182,7 +181,7 @@ class SymbolGroup
                 kept.push s
                 continue
             try
-                s.clear()
+                s.clear(easingOpts)
             catch error
                 warn 'error: symbolgroup.remove'
         if not filter?
@@ -607,11 +606,9 @@ kartograph.dorlingLayout = (symbolgroup, iterations=40) ->
         return
 
     for r in [1..iterations]  # run 10 times
-        for i of nodes
-            for j of nodes
+        for A, i in nodes
+            for B, j in nodes
                 if j > i
-                    A = nodes[i]
-                    B = nodes[j]
                     if A.x + A.r < B.x - B.r or A.x - A.r > B.x + B.r
                         continue
                     if A.y + A.r < B.y - B.r or A.y - A.r > B.y + B.r

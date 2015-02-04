@@ -67,9 +67,19 @@ class Bubble extends Symbol
             path.attr 'title',me.title
         me
 
-    clear: () =>
+    clear: (easingOpts) =>
         me = @
-        me.path.remove()
+        if easingOpts?
+          easingOpts.duration ?= 500
+          easingOpts.type ?= 'backOut'
+          attrs =
+              cx: me.x
+              cy: me.y
+              r: me.radius
+          me.path.animate attrs, easingOpts.duration, easingOpts.type
+          setTimeout((-> me.path.remove()), easingOpts.duration + 10)
+        else
+          me.path.remove()
         me
 
     nodes: () =>

@@ -35,8 +35,7 @@ Kartograph::getGeoPathStr = (points, cmds=[]) ->
         cmds.push 'M'
 
     path_str = ''
-    for i of points
-        pt = points[i]
+    for pt, i in points
         cmd = cmds[i] ? 'L'
         xy = me.lonlat2xy pt
         if isNaN(xy[0]) or isNaN(xy[1])
@@ -50,7 +49,7 @@ Kartograph::addGeoPolygon = (points, className) ->
     ### converts a set of ###
     me = @
     cmds = ['M']
-    for i of points
+    for point in points
         cmds.push 'L'
     cmds.push 'Z'
     me.addGeoPath points, cmds, className
